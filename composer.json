@@ -1,0 +1,21 @@
+{
+    "name": "lutpiero/yii2-admin-lte-menu",
+    "description": "AdminLTE Menu Widget",
+    "type": "yii2-extension",
+    "keywords": ["yii2","extension","adminlte"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Yanuar Lutfi",
+            "email": "lutpiero@gmail.com"
+        }
+    ],
+    "require": {
+        "yiisoft/yii2": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "lutpiero\\": ""
+        }
+    }
+}
