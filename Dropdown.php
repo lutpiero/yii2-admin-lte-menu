@@ -11,6 +11,8 @@ use yii\base\InvalidConfigException;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Url;
+use yii\bootstrap\Widget;
+use yii\bootstrap\BootstrapPluginAsset;
 
 /**
  * Dropdown renders a Bootstrap dropdown menu component.
@@ -50,7 +52,7 @@ class Dropdown extends Widget
     public function init()
     {
         parent::init();
-        Html::addCssClass($this->options, 'dropdown-menu');
+        Html::addCssClass($this->options, 'treeview-menu');
     }
 
     /**
@@ -102,7 +104,7 @@ class Dropdown extends Widget
                 unset($submenuOptions['id']);
                 $content = Html::a($label, $url === null ? '#' : $url, $linkOptions)
                     . $this->renderItems($item['items'], $submenuOptions);
-                Html::addCssClass($itemOptions, 'dropdown-submenu');
+                Html::addCssClass($itemOptions, 'treeview');
             }
 
             $lines[] = Html::tag('li', $content, $itemOptions);

@@ -5,14 +5,14 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace lutpiero\NavCustom;
+namespace lutpiero;
 
 use Yii;
 use yii\base\InvalidConfigException;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\bootstrap\Widget;
-use yii\bootstrap\Dropdown;
+use lutpiero\Dropdown;
 use yii\bootstrap\BootstrapAsset;
 
 /**
@@ -127,12 +127,14 @@ class NavCustom extends Widget
     public function renderItems()
     {
         $items = [];
+        $first = TRUE;
         foreach ($this->items as $i => $item) {
             if (isset($item['visible']) && !$item['visible']) {
                 unset($items[$i]);
                 continue;
             }
-            $items[] = $this->renderItem($item);
+            $items[] = $this->renderItem($item,$first);
+            $first = FALSE;
         }
 
         return Html::tag('ul', implode("\n", $items), $this->options);
@@ -144,7 +146,7 @@ class NavCustom extends Widget
      * @return string the rendering result.
      * @throws InvalidConfigException
      */
-    public function renderItem($item)
+    public function renderItem($item,$first)
     {
         if (is_string($item)) {
             return $item;
@@ -167,9 +169,12 @@ class NavCustom extends Widget
 
         if ($items !== null) {
             //$linkOptions['data-toggle'] = 'dropdown';
-            //Html::addCssClass($options, 'dropdown');
+            if($first)
+                Html::addCssClass($options, 'treeview');
             //Html::addCssClass($linkOptions, 'dropdown-toggle');
-            $label .= ' ' . Html::tag('b', '', ['class' => 'caret']);
+            //$label .= ' ' . 
+            //        '<i class="fa pull-right fa-angle-left"></i>';
+            //        ;//Html::tag('b', '', ['class' => 'caret']);
             if (is_array($items)) {
                 if ($this->activateItems) {
                     $items = $this->isChildActive($items, $active);
