@@ -169,13 +169,16 @@ class NavCustom extends Widget
 
         if ($items !== null) {
             //$linkOptions['data-toggle'] = 'dropdown';
-            if($first)
-                Html::addCssClass($options, 'treeview');
+            //
+            //var_dump($items);
+//            if($first)
             //Html::addCssClass($linkOptions, 'dropdown-toggle');
             //$label .= ' ' . 
             //        '<i class="fa pull-right fa-angle-left"></i>';
             //        ;//Html::tag('b', '', ['class' => 'caret']);
             if (is_array($items)) {
+                if(!empty($items))
+                Html::addCssClass($options, 'treeview');
                 if ($this->activateItems) {
                     $items = $this->isChildActive($items, $active);
                 }
