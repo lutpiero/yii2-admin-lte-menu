@@ -14,6 +14,7 @@ use yii\helpers\Html;
 use yii\bootstrap\Widget;
 use lutpiero\Dropdown;
 use yii\bootstrap\BootstrapAsset;
+use yii\helpers\Url;
 
 /**
  * Nav renders a nav HTML component.
@@ -240,9 +241,14 @@ class NavCustom extends Widget
      * @param array $item the menu item to be checked
      * @return boolean whether the menu item is active
      */
-    protected function isItemActive($item)
+ protected function isItemActive($item)
     {
-        if (isset($item['url']) && is_array($item['url']) && isset($item['url'][0])) {
+        
+        //var_dump(Url::toRoute($this->route),'=>',$item['url']);
+        if (isset($item['url'])/* && is_array($item['url']) && isset($item['url'][0])*/) {
+            //if($item['url'])
+            if(Url::toRoute($this->route) == $item['url'])
+                    return TRUE;
             $route = $item['url'][0];
             if ($route[0] !== '/' && Yii::$app->controller) {
                 $route = Yii::$app->controller->module->getUniqueId() . '/' . $route;
@@ -250,7 +256,7 @@ class NavCustom extends Widget
             if (ltrim($route, '/') !== $this->route) {
                 return false;
             }
-            unset($item['url']['#']);
+            unset($item['url']['#']);       
             if (count($item['url']) > 1) {
                 foreach (array_splice($item['url'], 1) as $name => $value) {
                     if ($value !== null && (!isset($this->params[$name]) || $this->params[$name] != $value)) {
@@ -258,9 +264,9 @@ class NavCustom extends Widget
                     }
                 }
             }
-
             return true;
         }
+            
 
         return false;
     }
